@@ -7,12 +7,17 @@ function game() {
   let pScore = 0;
   let cScore = 0;
 
+  let Score = document.getElementById('scoreboard').textContent;
+
+  let Legend = document.getElementById('legend');
+  let newLegend = document.createElement("li");
+
   function computerPlay() {
     let rand = Math.floor(Math.random() * Array.length);
     return Array[rand];
   };
 
-  let Score = document.getElementById('scoreboard').innerText;
+
 
   const PlayerClick = document.querySelectorAll('.btn').forEach(item => {
     item.addEventListener('click', event => {
@@ -21,6 +26,10 @@ function game() {
       playRound(ps, cs);
     })
   });
+
+  function setScore(pScore, cScore) {
+    Score = `${pScore} : ${cScore}`;
+  }
   
   function playRound(ps, cs) {
 
@@ -48,8 +57,13 @@ function game() {
         console.log("error?!");
       };
 
-      console.log(`${pScore} ${cScore}`);
-      Score = "Test!";
+      setScore(pScore, cScore);
+
+      let LegendChilds = document.getElementById("legend").children.length;
+
+      newLegend.innerText = `${ps} : ${cs}`
+      newLegend.id = LegendChilds + 1;
+      Legend.insertBefore(newLegend, Legend.children[LegendChilds]);
 
     };
  
